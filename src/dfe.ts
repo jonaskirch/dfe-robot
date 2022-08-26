@@ -37,11 +37,11 @@ const search = async (ultNSU = 0) => {
     ).nfeDistDFeInteresseResult;
 
     const { cStat, xMotivo, ultNSU: ultimoNSU } = resp.retDistDFeInt;
-    if (['137', '138'].includes(cStat)) {
-      console.log(format(new Date(), 'hh:mm:ss'), cStat, xMotivo, ultimoNSU);
-    } else {
-      console.log(format(new Date(), 'hh:mm:ss'), cStat);
-    }
+    // if (['137', '138'].includes(cStat)) {
+    console.log(format(new Date(), 'hh:mm:ss'), cStat, xMotivo, ultimoNSU);
+    // } else {
+    //   console.log(format(new Date(), 'hh:mm:ss'), cStat, xMotivo);
+    // }
   } catch (err: any) {
     console.log(err);
   }

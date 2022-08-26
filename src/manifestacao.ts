@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { Signature } from './dfe/Signature';
 import XmlHelper from './dfe/XmlHelper';
 import ClientSoap from './dfe/ClientSoap';
-import cert from './dfe/certificate';
+import Certificate from './dfe/certificate';
 
 interface IDadosManifestacao {
   chave: string;
@@ -52,6 +52,13 @@ class Manifestacao {
 
     const xml = XmlHelper.serialize(event.envEvento.evento, 'evento');
 
+    const cert = new Certificate(
+      '/home/kirch/cert/office/gen/certoffice.pfx',
+      '1',
+    );
+
+    //    console.log(cert);
+
     const sign = Signature.signXmlX509(xml, 'infEvento', cert);
 
     const signObj = await XmlHelper.deserialize(sign);
@@ -59,6 +66,8 @@ class Manifestacao {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     event.envEvento.evento.Signature = signObj.evento.Signature;
+
+    console.log(XmlHelper.serialize(event, 'envEvento'));
 
     try {
       const url =
